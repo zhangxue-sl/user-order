@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <title>Index</title>
+  </head>
+  <body>
+    <h1>1111111111111111</h1>
+    <button onclick="hello()">JWT请求测试</button>
+    <button onclick="auth()">权限请求测试：admin授权</button>
+    <a href="/logout">退出请求测试</a>
+  </body>
+  <script>
+    $(function () {
+      var token = localStorage.getItem("token");
+      console.log(token);
+    });
+    function hello() {
+      $.ajax({
+        url: "/hello",
+        type: "get",
+        beforeSend: function (request) {  //向服务发送请求前执行一些动作
+          request.setRequestHeader(  
+            "Authorization",
+            localStorage.getItem("token")
+          );
+        },
+      });
+    }
+    function auth() {
+      console.log("inininini auto",localStorage.getItem("token"))
+      $.ajax({
+        url: "/auth",
+        type: "get",
+        beforeSend: function (request) {
+          console.log("oioioio")
+          request.setRequestHeader(
+            "Authorization",
+            localStorage.getItem("token")
+          );
+        },
+      });
+    }
+   
+
+  </script>
+</html>
